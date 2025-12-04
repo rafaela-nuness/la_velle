@@ -1,0 +1,376 @@
+
+
+/* ==========================================================================
+   RESET & BASE STYLES
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ==========================================================================
+   CUSTOM PROPERTIES (CSS VARIABLES) - DESIGN TOKENS
+   ========================================================================== */
+
+:root {
+    /* Color Palette */
+    --color-nude-escuro: #c3aaa5;
+    --color-rosa-forte: #d76483; /* Cor principal de destaque (Fundo do Header) */
+    --color-rosa-medio: #ef9ca4;
+    --color-rosa-claro: #ffc2bb;
+    --color-areia: #f6e5cb;
+    --color-fundo: #fff7f5;
+    --color-texto-principal: #333333;
+    --color-texto-secundario: #555555;
+    
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+    --spacing-2xl: 4rem;
+    
+    /* Border Radius */
+    --radius-sm: 0.5rem;
+    --radius-md: 1rem;
+    --radius-lg: 2.5rem;
+    --radius-xl: 3.5rem;
+    --radius-fita: 2rem; /* Raio para as bordas da fita */
+    
+    /* Shadows */
+    --shadow-sm: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 1rem 3rem rgba(215, 100, 131, 0.3);
+    
+    /* Transitions */
+    --transition-base: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* ==========================================================================
+   GLOBAL STYLES
+   ========================================================================== */
+
+body {
+    font-family: "Poppins", sans-serif;
+    background: var(--color-fundo);
+    color: var(--color-texto-principal);
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+    padding-top: 0; 
+}
+
+/* ==========================================================================
+   HEADER - ESTILO FITA ORGÂNICA DE LARGURA TOTAL
+   ========================================================================== */
+
+header {
+    /* Ocupa 100% da largura */
+    margin: 0;
+    max-width: none;
+    width: 100%;
+    
+    text-align: center;
+    padding: var(--spacing-xl) var(--spacing-lg); /* Padding vertical e horizontal */
+    background: var(--color-rosa-forte);
+    color: var(--color-fundo);
+    
+    /* Sombra sutil na parte inferior */
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+    
+    position: relative;
+    overflow: hidden;
+    
+    /* Bordas arredondadas apenas nas laterais (para dar o efeito de fita) */
+    border-radius: 0;
+    border-top-left-radius: var(--radius-fita);
+    border-top-right-radius: var(--radius-fita);
+    border-bottom-left-radius: var(--radius-fita);
+    border-bottom-right-radius: var(--radius-fita);
+    
+    /* Adiciona margem inferior para separar do conteúdo */
+    margin-bottom: var(--spacing-2xl);
+}
+
+/* Remove o after, pois não precisamos de borda ondulada */
+header::after {
+    content: none;
+}
+
+header h1 {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 800;
+    letter-spacing: 0.15rem;
+    text-transform: uppercase;
+    text-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 3;
+    margin: 0;
+}
+
+/* ==========================================================================
+   TEAM CONTAINER
+   ========================================================================== */
+
+.team {
+    width: 90%;
+    max-width: 75rem;
+    margin: 0 auto var(--spacing-2xl) auto; /* Ajusta a margem superior */
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2xl);
+    padding-top: 0; 
+}
+
+/* ==========================================================================
+   MEMBER CARD (Mantido o estilo vibrante anterior)
+   ========================================================================== */
+
+.member {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xl);
+    padding: var(--spacing-lg);
+    background: var(--color-white);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
+    position: relative;
+    transition: var(--transition-base);
+    overflow: hidden;
+}
+
+.member:hover {
+    transform: translateY(-0.5rem) scale(1.01);
+    box-shadow: var(--shadow-lg);
+}
+
+.member.reverse {
+    flex-direction: row-reverse;
+}
+
+/* Detalhe criativo: círculo de cor de fundo */
+.member::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 150px;
+    height: 150px;
+    background: var(--color-rosa-claro);
+    border-radius: 50%;
+    opacity: 0.5;
+    transition: var(--transition-base);
+    z-index: 0;
+}
+
+.member.reverse::before {
+    right: auto;
+    left: -50px;
+}
+
+.member:hover::before {
+    transform: scale(1.5);
+    opacity: 0.8;
+}
+
+.member > * {
+    position: relative;
+    z-index: 1;
+}
+
+.member-img {
+    flex-shrink: 0;
+}
+
+.member-img img {
+    width: 14.375rem;
+    height: 17.5rem;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.15);
+    border: 0.3rem solid var(--color-rosa-forte);
+    transition: var(--transition-base);
+}
+
+.member:hover .member-img img {
+    border-color: var(--color-nude-escuro);
+    transform: rotate(-1deg);
+}
+
+.member.reverse:hover .member-img img {
+    transform: rotate(1deg);
+}
+
+.member-info {
+    max-width: 600px;
+}
+
+.member-info h2 {
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-weight: 700;
+    color: var(--color-rosa-forte);
+    margin-bottom: var(--spacing-sm);
+    text-transform: capitalize;
+}
+
+.member-info h2::after {
+    content: '';
+    display: block;
+    width: 3rem;
+    height: 0.25rem;
+    background: var(--color-rosa-medio);
+    margin-top: var(--spacing-xs);
+    border-radius: 0.125rem;
+}
+
+.member.reverse .member-info h2::after {
+    margin-left: auto;
+}
+
+.member-info p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--color-texto-secundario);
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+
+@media (max-width: 50rem) {
+    header {
+        padding: var(--spacing-lg) var(--spacing-md);
+        margin-bottom: var(--spacing-xl);
+    }
+
+    header h1 {
+        font-size: 2rem;
+    }
+
+    .team {
+        gap: var(--spacing-xl);
+        margin: 0 auto var(--spacing-xl) auto;
+    }
+
+    .member,
+    .member.reverse {
+        flex-direction: column;
+        text-align: center;
+        padding: var(--spacing-lg) var(--spacing-md);
+        gap: var(--spacing-lg);
+    }
+
+    .member-img img {
+        width: 80%;
+        max-width: 15rem;
+        height: auto;
+        margin: 0 auto;
+    }
+
+    .member-info h2::after {
+        margin: var(--spacing-xs) auto 0;
+    }
+
+    .member::before,
+    .member.reverse::before {
+        display: none;
+    }
+}
+
+@media (max-width: 30rem) {
+    header {
+        padding: var(--spacing-md) var(--spacing-sm);
+        margin-bottom: var(--spacing-lg);
+        border-radius: var(--radius-lg);
+    }
+
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    .team {
+        margin: 0 auto var(--spacing-lg) auto;
+    }
+
+    .member {
+        border-radius: var(--radius-lg);
+    }
+
+    .member-img img {
+        width: 100%;
+        max-width: 12rem;
+        height: 15rem;
+    }
+
+    .member-info h2 {
+        font-size: 1.5rem;
+    }
+
+    .member-info p {
+        font-size: 1rem;
+    }
+}
+
+img {
+  width: 100px;
+}
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: -90;  /* Aproxima ao máximo */
+}
+
+.logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem;
+    color: #ffffff;
+    font-weight: 600;
+    margin-left: -8px; /* Puxa para perto da logo */
+}
+
+.logo-img {
+    max-height: 69px;
+    width: auto;
+    object-fit: contain;
+}
+
+
+
+        /* FOOTER */
+        footer {
+            background: var(--color-1);
+            color: #fff;
+            padding: 3rem 5%;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+        
+        .footer-section p,
+        .footer-section a {
+            color: #fff;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+        
+        .footer-section a:hover {
+            opacity: 1;
+        }

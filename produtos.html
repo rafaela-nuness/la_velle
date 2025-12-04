@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produtos - La Velle</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="produtos.css">
+    <link rel="stylesheet" href="carrinho.css">
+</head>
+<body>
+
+   <header>
+    <div class="logo-container">
+        <img src="img/logonovo.png" alt="la velle" class="logo-img">
+        <div class="logo">La Velle</div>
+    </div>
+        
+     <nav>
+    <a href="index.html">Início</a>
+    <a href="produtos.html">Produtos</a>
+    <a href="index.html#sobre">Sobre Nós</a>
+    <a href="quemsomos.html">Quem somos</a>
+    <a href="index.html#contato">Contato</a>
+    <a href="dicas.html">Dica de moda</a>
+</nav>
+    </header>
+
+<main> <!-- Carrinho --> <div class="carrinho"> <h2>Carrinho</h2> <ul id="lista-carrinho"> <li class="carrinho-vazio">Seu carrinho está vazio</li> </ul> <p class="total">Total: R$ <span id="total">0,00</span></p> <div class="carrinho-acoes"> <button class="btn-limpar" id="btn-limpar">Limpar</button> <button class="btn-finalizar" id="btn-finalizar">Finalizar</button> </div> </div>
+
+    <!-- Consultor de Estilo -->
+    <section class="estilo-section">
+        <h2>Consultor de Estilo</h2>
+        <div class="botoes-estilo">
+            <button class="btn-estilo active" data-estilo="todos">Todos</button>
+            <button class="btn-estilo" data-estilo="casual">Casual</button>
+            <button class="btn-estilo" data-estilo="romantico">Romântico</button>
+            <button class="btn-estilo" data-estilo="trabalho">Trabalho</button>
+            <button class="btn-estilo" data-estilo="noite">Noite</button>
+        </div>
+    </section>
+
+    <!-- Filtros e Busca -->
+    <div class="filtros-busca-container">
+        <section class="filtros">
+            <label for="filtro-pele">Filtrar por tom do tecido:</label>
+            <select id="filtro-pele">
+                <option value="todas">Todos os tons</option>
+                <option value="claro">Claro</option>
+                <option value="medio">Médio</option>
+                <option value="escuro">Escuro</option>
+            </select>
+        </section>
+
+        <section class="busca-section">
+            <label for="campo-busca">Buscar produto:</label>
+            <input type="text" id="campo-busca" placeholder="Digite o nome do produto...">
+        </section>
+    </div>
+
+     
+
+<div class="products-list"></div>
+
+    <!-- Monte Seu Look -->
+    <section class="look-section">
+        <h2>Monte Seu Look</h2>
+        <label for="select-blusa">Escolha uma blusa:</label>
+        <select id="select-blusa">
+            <option value="">Selecione uma blusa...</option>
+        </select>
+        <div id="saida-look" class="look-sugestao"></div>
+    </section>
+</main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Institucional</h3>
+                <a href="#">Privacidade</a>
+                <a href="#">Trocas e Devoluções</a>
+                <a href="#">Prazos e Entregas</a>
+                <a href="#">Dúvidas Frequentes</a>
+            </div>
+            <div class="footer-section">
+                <h3>Informações</h3>
+                <a href="index.html">Início</a>
+                <a href="produtos.html">Meus Pedidos</a>
+                <a href="#">Cadastre-se</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contato</h3>
+                <p><i class="fab fa-whatsapp"></i> (11) 91897-6700</p>
+                <p><i class="fas fa-phone"></i> (11) 91897-6700</p>
+                <p><i class="fas fa-envelope"></i> contato@lavelle.com.br</p>
+                <p><i class="fas fa-map-marker-alt"></i> São Paulo - SP</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Closet la velle. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+<script src="script.js"></script>
+
+
+</body>
+</html>
