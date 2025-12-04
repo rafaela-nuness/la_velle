@@ -1,8 +1,6 @@
 
 
 
-
-
 // ===== MENU MOBILE - VERSÃO MELHORADA =====
 document.addEventListener('DOMContentLoaded', function() {
     const header = document.querySelector('header');
@@ -22,11 +20,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 header.appendChild(menuToggle);
             }
         }
+
         menuToggle.addEventListener('click', function(e) {
-            e.stopPropagation();
+            e.stopPropagation(); //Impede que o clique no botão seja "passado adiante" e feche o menu por engano
             nav.classList.toggle('active');
-            menuToggle.innerHTML = nav.classList.contains('active') ? '✕' : '☰';
+            menuToggle.innerHTML = nav.classList.contains('active') ? '✕' : '☰';    //Se o menu estiver ativo, mostra ✕; se não estiver, mostra ☰
         });
+
         const navLinks = nav.querySelectorAll('a');
         navLinks.forEach(link => {
             link.addEventListener('click', function() {
@@ -51,90 +51,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // FORMATAÇÃO DE PREÇO
 function formatarPreco(valor) {
     let partes = valor.toFixed(2).split('.');
     return "R$ " + partes[0] + ',' + partes[1];
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -149,7 +70,7 @@ const produtos = [
     {nome:"Moletom Casual",preco:89.90,imagem:"img/moletomcasual.png",categoria:"trabalho",tecido:["claro"],tipo:"blusa"},
     {nome:"Saia Romântica",preco:79.90,imagem:"img/saia.png",categoria:"romantico",tecido:["medio"],tipo:"calça"},
     {nome:"Blusa Social",preco:69.90,imagem:"img/blusasocial.png",categoria:"trabalho",tecido:["medio"],tipo:"blusa"},
-    {nome:"Vestido Noite",preco:159.90,imagem:"img/vestidonoite.png",categoria:"noite",tecido:["claro"],tipo:"blusa"},
+    {nome:"Vestido Noite",preco:159.90,imagem:"img/vestidonoite.png",categoria:"noite",tecido:["claro"],tipo:"vestido"},
     {nome:"Calça Social",preco:139.90,imagem:"img/calcasocial.png",categoria:"trabalho",tecido:["medio"],tipo:"calça"},
     {nome:"Body",preco:69.50,imagem:"img/body.png",categoria:"romantico",tecido:["claro"],tipo:"blusa"},
     {nome:"Blusa de Festa",preco:89.90,imagem:"img/blusadefesta.jpg",categoria:"noite",tecido:["medio"],tipo:"blusa"},
@@ -157,25 +78,6 @@ const produtos = [
     {nome:"Saia Longa",preco:99.90,imagem:"img/saialonga.png",categoria:"romantico",tecido:["escuro"],tipo:"calça"},
     {nome:"Calça Elegante",preco:149.90,imagem:"img/calcaelegante.png",categoria:"noite",tecido:["medio"],tipo:"calça"}
 ];
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -200,31 +102,17 @@ const btnFinalizar = document.getElementById("btn-finalizar");
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // CARRINHO DE COMPRAS
 let carrinho = [];
 let total = 0;
 let contadorPedidos = 0;
 
+
 function gerarCodigoPedido() {
     contadorPedidos++;
-    return "LV-" + String(contadorPedidos).padStart(6, '0');
+    return "LV-" + String(contadorPedidos).padStart(6, '0');   // padStart coloca zeros na frente até o código ter o tamanho desejado
 }
+
 
 function atualizarCarrinho() {
     if (!listaCarrinho || !totalSpan) return;
@@ -237,7 +125,7 @@ function atualizarCarrinho() {
     carrinho.forEach((item, index) => {
         const li = document.createElement("li");
         li.innerHTML = `<span>${item.nome} – ${formatarPreco(item.preco)}</span>
-        <button class='remover' data-index='${index}'>✕</button>`;
+        <button class='remover' data-index='${index}'> ✕ </button>`;
         listaCarrinho.appendChild(li);
     });
     totalSpan.textContent = formatarPreco(total).replace("R$ ", "");
@@ -246,11 +134,14 @@ function atualizarCarrinho() {
     });
 }
 
+
+
 function adicionarAoCarrinho(produto) {
     carrinho.push(produto);
     total += produto.preco;
     atualizarCarrinho();
 }
+
 
 function removerDoCarrinho(index) {
     total -= carrinho[index].preco;
@@ -276,30 +167,6 @@ if (btnLimpar) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // FINALIZAR COMPRA COM ENDEREÇO E PAGAMENTO
 if (btnFinalizar) {
     btnFinalizar.addEventListener("click", () => {
@@ -307,6 +174,7 @@ if (btnFinalizar) {
             alert("Seu carrinho está vazio!");
             return;
         }
+
         const endereco = prompt("Digite seu endereço de entrega:");
         if (!endereco || endereco.trim() === "") {
             alert("Você precisa informar o endereço de entrega.");
@@ -318,9 +186,11 @@ if (btnFinalizar) {
             alert("Escolha uma forma de pagamento válida: Pix, Cartão de Crédito, ou Boleto.");
             return;
         }
-        formaPagamento = formaPagamento.charAt(0).toUpperCase() + formaPagamento.slice(1).toLowerCase();
+
+
+        formaPagamento = formaPagamento.charAt(0).toUpperCase() + formaPagamento.slice(1).toLowerCase();   //charAt(0) → pega a 1ª letra
         let codigoPedido = gerarCodigoPedido();
-        let dataAtual = new Date().toLocaleDateString("pt-BR");
+        let dataAtual = new Date().toLocaleDateString("pt-BR");   //formata para o padrão brasileiro (dia/mês/ano)
         let itensTexto = carrinho.map(item=>`${item.nome} - ${formatarPreco(item.preco)}`).join('\n');
         let confirmacao = (`COMPRA FINALIZADA!\n\nCódigo do Pedido: ${codigoPedido}\nData: ${dataAtual}\nEndereço: ${endereco}\nPagamento: ${formaPagamento}\n\nItens do pedido:\n${itensTexto}\n\nTotal: ${formatarPreco(total)}\n\nGuarde este código para acompanhar seu pedido!`);
         alert(confirmacao);
@@ -345,43 +215,6 @@ if (btnFinalizar) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // RENDERIZAÇÃO DE PRODUTOS
 function renderizarProdutos(lista) {
     if (!produtosContainer) return;
@@ -390,18 +223,20 @@ function renderizarProdutos(lista) {
         produtosContainer.innerHTML = '<div class="no-results">Nenhum produto encontrado</div>';
         return;
     }
+
     lista.forEach(produto => {
         const card = document.createElement("div");
         card.classList.add("product-card");
         card.innerHTML = `
             <div class='product-image'><img src='${produto.imagem}' alt='${produto.nome}' style='width:100%;height:100%;object-fit:cover;'></div>
             <div class='product-info'>
-                <h3>${produto.nome}</h3>
-                <p class='product-price'>${formatarPreco(produto.preco)}</p>
-                <button class='product-button add-to-cart' data-nome='${produto.nome}' data-preco='${produto.preco}'>🛒 Adicionar ao Carrinho</button>
+            <h3>${produto.nome}</h3>
+            <p class='product-price'>${formatarPreco(produto.preco)}</p>
+            <button class='product-button add-to-cart' data-nome='${produto.nome}' data-preco='${produto.preco}'> Adicionar ao Carrinho</button>
             </div>`;
         produtosContainer.appendChild(card);
     });
+
     document.querySelectorAll(".add-to-cart").forEach(btn => {
         btn.addEventListener("click", () => {
             const nome = btn.dataset.nome;
@@ -410,85 +245,15 @@ function renderizarProdutos(lista) {
             btn.textContent = "✓ Adicionado!";
             btn.style.background = "var(--color-2)";
             btn.style.color = "white";
-            setTimeout(() => {
-                btn.textContent = "🛒 Adicionar ao Carrinho";
+
+            setTimeout(() => {      //// setTimeout espera um tempo e depois executa o código
+                btn.textContent = " Adicionar ao Carrinho";
                 btn.style.background = "";
                 btn.style.color = "";
             }, 1000);
         });
     });
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -528,74 +293,6 @@ if (selectTecido) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // MONTAR LOOK AUTOMÁTICO
 function preencherSelectBlusas() {
     if (!selectBlusa) return;
@@ -607,19 +304,23 @@ function preencherSelectBlusas() {
         selectBlusa.appendChild(op);
     });
 }
+
 if (selectBlusa && lookSugestao) {
     preencherSelectBlusas();
     selectBlusa.addEventListener("change", () => {
         const nomeBlusa = selectBlusa.value;
         lookSugestao.innerHTML = "";
         if (nomeBlusa === "") {
-            lookSugestao.innerHTML = '<p style="color: #999; text-align: center; padding: 2rem;">Selecione uma blusa para ver sugestões de look 👗</p>';
+            lookSugestao.innerHTML = '<p style="color: #999; text-align: center; padding: 2rem;">Selecione uma blusa para ver sugestões de look </p>';
             return;
         }
+
+
         const blusaSelecionada = produtos.find(p => p.nome === nomeBlusa);
         const calcas = produtos.filter(p => p.tipo === "calça" && p.categoria === blusaSelecionada.categoria);
+        
         if (calcas.length > 0) {
-            lookSugestao.innerHTML = '<h4>✨ Sugestões de peças para combinar:</h4>';
+            lookSugestao.innerHTML = '<h4> Sugestões de peças para combinar:</h4>';
             calcas.forEach(calca => {
                 const lookCard = document.createElement("div");
                 lookCard.classList.add("look-card");
@@ -632,12 +333,16 @@ if (selectBlusa && lookSugestao) {
                     </div>`;
                 lookSugestao.appendChild(lookCard);
             });
+
             const totalLook = blusaSelecionada.preco + calcas[0].preco;
             const totalDiv = document.createElement("div");
             totalDiv.style.cssText = "margin-top: 2rem; padding: 1.5rem; background: var(--color-2); color: white; border-radius: 12px; text-align: center;";
             
+
+
+            // Botão “Adicionar Look Completo”
             const addLookBtn = document.createElement("button");
-            addLookBtn.textContent = "🛍️ Adicionar Look Completo";
+            addLookBtn.textContent = " Adicionar Look Completo";
             addLookBtn.style.cssText = `
                 margin-top: 1rem;
                 padding: 0.8rem 1.5rem;
@@ -659,57 +364,26 @@ if (selectBlusa && lookSugestao) {
                 addLookBtn.style.transform = "scale(1)";
                 addLookBtn.style.boxShadow = "none";
             };
+
             addLookBtn.addEventListener("click", () => {
                 adicionarAoCarrinho(blusaSelecionada);
                 adicionarAoCarrinho(calcas[0]);
-                alert("✨ Look completo adicionado ao carrinho!");
+                alert(" Look completo adicionado ao carrinho!");
                 selectBlusa.value = "";
-                lookSugestao.innerHTML = '<p style="color: #999; text-align: center; padding: 2rem;">Selecione uma blusa para ver sugestões de look 👗</p>';
+                lookSugestao.innerHTML = '<p style="color: #999; text-align: center; padding: 2rem;">Selecione uma blusa para ver sugestões de look </p>';
             });
             
-            totalDiv.innerHTML = `<h4 style='margin-bottom: 0.5rem; color: white;'>💫 Look Completo</h4>
+            totalDiv.innerHTML = `<h4 style='margin-bottom: 0.5rem; color: white;'> Look Completo</h4>
                                   <p style='font-size: 1.5rem; font-weight: 600; color: white;'>${formatarPreco(totalLook)}</p>`;
             totalDiv.appendChild(addLookBtn);
             lookSugestao.appendChild(totalDiv);
+
         } else {
-            lookSugestao.innerHTML = '<p style="color: #999; text-align: center; padding: 2rem;">Ops! Não encontramos peças para combinar com essa blusa no momento 😕</p>';
+            lookSugestao.innerHTML = '<p style="color: #999; text-align: center; padding: 2rem;">Ops! Não encontramos peças para combinar com essa blusa no momento </p>';
         }
     });
-    lookSugestao.innerHTML = '<p style="color: #999; text-align: center; padding: 2rem;">Selecione uma blusa para ver sugestões de look 👗</p>';
+    lookSugestao.innerHTML = '<p style="color: #999; text-align: center; padding: 2rem;">Selecione uma blusa para ver sugestões de look </p>';
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -736,138 +410,30 @@ if (busca) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // CONTROLE DO CARRINHO COM SCROLL
+
 (function() {
-    let ultimaPosicao = window.pageYOffset;
-    const carrinhoElement = document.querySelector('.carrinho');
-    if (carrinhoElement) {
-        window.addEventListener('scroll', function() {
-            const posicaoAtual = window.pageYOffset;
-            if (posicaoAtual > ultimaPosicao && posicaoAtual > 100) {
-                carrinhoElement.classList.add('hidden');
-            } else {
-                carrinhoElement.classList.remove('hidden');
-            }
-            ultimaPosicao = posicaoAtual;
-        });
-    }
+    let ultimoScroll = 0;
+    const carrinho = document.querySelector('.carrinho');
+
+    if (!carrinho) return;
+
+    window.addEventListener("scroll", () => {
+        const scrollAtual = window.scrollY;  //quanto a página já foi rolada para baixo, em pixels.
+        //O valor aumenta quando você desce
+
+        // Rolando para baixo → esconder carrinho
+        if (scrollAtual > ultimoScroll && scrollAtual > 100) {
+            carrinho.classList.add("hidden");
+        }
+        // Rolando para cima → mostrar carrinho
+        else {
+            carrinho.classList.remove("hidden");
+        }
+
+        ultimoScroll = scrollAtual; // atualiza o último scroll
+    });
 })();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
